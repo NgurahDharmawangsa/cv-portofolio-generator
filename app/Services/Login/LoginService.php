@@ -13,4 +13,6 @@ interface LoginService extends BaseService{
      * @return mixed
      */
     public function login(array $data);
+
+    public function logout();
 }

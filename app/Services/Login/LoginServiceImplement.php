@@ -4,6 +4,7 @@ namespace App\Services\Login;
 
 use LaravelEasyRepository\ServiceApi;
 use App\Repositories\Login\LoginRepository;
+use Illuminate\Support\Facades\URL;
 
 class LoginServiceImplement extends ServiceApi implements LoginService
 {
@@ -33,6 +34,27 @@ class LoginServiceImplement extends ServiceApi implements LoginService
 
   public function login(array $data)
   {
-    
+    if (@!$data['remember']) {
+      $data['remember'] = false;
+    }
+    if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']], $data['remember'])) {
+      $redirect = redirect()->intended(URL::route('dashboard'));
+      return $this->setStatus(true)
+        ->setCode(200)
+        ->setMessage('Login Berhasil')
+        ->setResult(['redirect' => $redirect->getTargetUrl(), 'data' => auth()->user()]);
+    } else {
+      return $this->setStatus(false)
+        ->setCode(401)
+        ->setMessage('Kredinsial login tidak diterima');
+    }
+  }
+
+  public function logout()
+  {
+    auth()->logout();
+    return $this->setStatus(true)
+      ->setCode(200)
+      ->setMessage('Logout berhasil');
   }
 }

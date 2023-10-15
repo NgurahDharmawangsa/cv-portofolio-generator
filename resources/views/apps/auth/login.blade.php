@@ -44,7 +44,7 @@
         <div class="col-lg-4">
             <div class="signin-wrapper">
                 <div class="form-wrapper">
-                    <h6 class="mb-15">Balindo Paradiso</h6>
+                    <h6 class="mb-15">Generate CV Portofolio</h6>
                     <p class="text-sm mb-25">
                         Fill your email and password to login.
                     </p>
@@ -97,7 +97,7 @@
                     <div class="singin-option pt-20">
                         <p class="text-sm text-medium text-dark text-center">
                             Don't have any account yet?
-                            <a href="{{ route('register') }}">Register student</a>
+                            <a href="#">Register student</a>
                         </p>
                     </div>
                 </div>
