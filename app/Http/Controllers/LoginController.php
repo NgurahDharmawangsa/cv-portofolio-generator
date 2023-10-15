@@ -29,4 +29,10 @@ class LoginController extends Controller
         }
         return abort(404);
     }
+
+    public function logout()
+    {
+        $this->loginService->logout();
+        return redirect()->route('login');
+    }
 }
