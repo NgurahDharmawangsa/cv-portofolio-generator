@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Services\Login\LoginService;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class LoginController extends Controller
         return view("apps.auth.login");
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         if($request->ajax()) {
             $data = $request->only(['email', 'password', 'remember']);

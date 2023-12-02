@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Models\Role;
 use LaravelEasyRepository\ServiceApi;
 use App\Repositories\User\UserRepository;
 
@@ -14,10 +15,10 @@ class UserServiceImplement extends ServiceApi implements UserService{
      * @param string $update_message
      * @param string $delete_message
      */
-     protected $title = "";
-     protected $create_message = "";
-     protected $update_message = "";
-     protected $delete_message = "";
+     protected $title = "User";
+     protected $create_message = "successfully created";
+     protected $update_message = "successfully updated";
+     protected $delete_message = "successfully deleted";
 
      /**
      * don't change $this->mainRepository variable name
@@ -30,5 +31,18 @@ class UserServiceImplement extends ServiceApi implements UserService{
       $this->mainRepository = $mainRepository;
     }
 
-    // Define your custom methods :)
+    public function register($data)
+    {
+      try {
+        $user = $this->mainRepository->create($data);
+        $user->roles()->attach(Role::MAHASISWA);
+
+        return $this->Setcode(200)
+              ->setStatus(true)
+              ->setStatus("Successfully Registered")
+              ->setResult(['redirect' => route('login')]);
+      } catch (\Exception $exception) {
+        return $this->exceptionResponse($exception);
+      }
+    }
 }
