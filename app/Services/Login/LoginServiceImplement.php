@@ -6,6 +6,9 @@ use LaravelEasyRepository\ServiceApi;
 use App\Repositories\Login\LoginRepository;
 use Illuminate\Support\Facades\URL;
 
+/**
+ *
+ */
 class LoginServiceImplement extends ServiceApi implements LoginService
 {
 
@@ -17,9 +20,18 @@ class LoginServiceImplement extends ServiceApi implements LoginService
    * @param string $delete_message
    */
   protected $title = "";
-  protected $create_message = "";
-  protected $update_message = "";
-  protected $delete_message = "";
+    /**
+     * @var string
+     */
+    protected $create_message = "";
+    /**
+     * @var string
+     */
+    protected $update_message = "";
+    /**
+     * @var string
+     */
+    protected $delete_message = "";
 
   /**
    * don't change $this->mainRepository variable name
@@ -27,12 +39,19 @@ class LoginServiceImplement extends ServiceApi implements LoginService
    */
   protected $mainRepository;
 
-  public function __construct(LoginRepository $mainRepository)
+    /**
+     * @param LoginRepository $mainRepository
+     */
+    public function __construct(LoginRepository $mainRepository)
   {
     $this->mainRepository = $mainRepository;
   }
 
-  public function login(array $data)
+    /**
+     * @param array $data
+     * @return LoginServiceImplement|mixed
+     */
+    public function login(array $data)
   {
     if (@!$data['remember']) {
       $data['remember'] = false;
@@ -50,7 +69,10 @@ class LoginServiceImplement extends ServiceApi implements LoginService
     }
   }
 
-  public function logout()
+    /**
+     * @return LoginServiceImplement
+     */
+    public function logout()
   {
     auth()->logout();
     return $this->setStatus(true)
